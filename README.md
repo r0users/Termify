@@ -13,4 +13,4 @@ Transform your terminal aesthetics with a single command!
 ## 🚀 Quick Start  
 1. Clone the repo:  
    ```bash  
-   git clone https://github.com/YourUsername/Termify.git  
+   git clone https://github.com/r0users/Termify
