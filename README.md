@@ -53,7 +53,7 @@ bash install-theme.sh
 
 # Reopen Terminal
 ```
-# Arch Linux
+### Arch Linux
 ```bash
 git clone https://github.com/r0users/Termify.git
 cd Termify
@@ -63,20 +63,15 @@ sudo ./install-theme.sh
 ```
 ## Restore Defaults
 ```bash
-
 cd Termify
 bash restore-default.sh
 
 # Or
-
 cd Termify
 sudo ./restore-default.sh
 
-exit  
-
 # Reopen Terminal
 ```
-
 ### ❓ FAQ
 ## "Why doesn't autosuggestion work?"
 
