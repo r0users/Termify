@@ -51,12 +51,6 @@ exit
 # Reopen Terminal
 ```
 
-🛠️ Customization
-Adding Themes (Advanced)
-
-- Place your theme files in Termify/ directory.
-- Modify install-theme.sh to apply your theme.
-
 ## Restore Defaults
 ```bash
 
