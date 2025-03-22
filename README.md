@@ -45,12 +45,12 @@ git clone https://github.com/r0users/Termify.git
 cd Termify
 
 cd Termify
-bash install-theme
+bash install-theme.sh
 
 # Or
 
 cd Termify
-sudo ./install-theme 
+sudo ./install-theme.sh
 
 # After setup completes:  
 
