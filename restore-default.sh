@@ -1,60 +1,48 @@
 #!/bin/bash
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2025 r0users
-# Repository: https://github.com/r0users/Termify
+# Termify Clean Uninstaller
+# Repo: https://github.com/r0users/Termify
 
-RED="\e[31m"
-GREEN="\e[32m"
-YELLOW="\e[33m"
-NC="\e[0m"
+# ----[ Configuration ]----
+TERMUX_HOME="/data/data/com.termux/files/home"
+COLOR_RESET="\033[0m"
+RED="\033[1;31m"
+GREEN="\033[1;32m"
 
-echo -e "${YELLOW}*** Termify Configuration Rollback ***${NC}"
-echo -e "${YELLOW}Restoring default terminal settings...${NC}\n"
-
-# ---------------------- Sanitize Backup ----------------------
-# Restore .zshrc backup with OMZ references removed
-backup_file=$(ls -t "$HOME"/.zshrc.backup.* 2>/dev/null | head -n 1)
-
-if [ -z "$backup_file" ]; then
-    echo -e "${RED}ERROR: No backup file found.${NC}"
-    exit 1
-fi
-
-echo -e "${GREEN}Restoring backup: ${backup_file}${NC}"
-
-# Hapus bagian yang refer ke Oh-My-Zsh & theme
-sed '/^# BEGIN UNIVERSAL THEME/,/^# END UNIVERSAL THEME/d' "$backup_file" | \
-sed '/oh-my-zsh/d' > "$HOME/.zshrc.tmp" && \
-mv "$HOME/.zshrc.tmp" "$HOME/.zshrc" || {
-    echo -e "${RED}Failed to sanitize .zshrc!${NC}"
-    exit 1
+# ----[ Core Functions ]----
+reset_shell() {
+    echo -e "${RED}»${COLOR_RESET} Reverting to bash..."
+    chsh -s bash
+    rm -f "${TERMUX_HOME}/.shell"
 }
 
-# ---------------------- Cleanup Process ----------------------
-echo -e "\n${YELLOW}Cleaning up components...${NC}"
+remove_ohmyzsh() {
+    echo -e "${RED}»${COLOR_RESET} Removing Oh My Zsh..."
+    rm -rf "${TERMUX_HOME}/.oh-my-zsh"
+    rm -f "${TERMUX_HOME}/.zshrc"*
+}
 
-declare -a targets=(
-    "$HOME/.oh-my-zsh"
-    "$HOME/.termux"
-    "$HOME/.hushlogin"
-    "$HOME/.zcompdump*"
-    "$HOME/.zsh-autosuggestions"
-)
+clean_artifacts() {
+    echo -e "${RED}»${COLOR_RESET} Cleaning leftovers..."
+    # Termify config files
+    rm -f "${TERMUX_HOME}/.termux/colors.properties"
+    rm -f "${TERMUX_HOME}/.hushlogin"
+    
+    # Cache and logs
+    rm -rf "${TERMUX_HOME}/.termify_cache"
+    rm -f "${TERMUX_HOME}/termify_install.log"
+}
 
-for target in "${targets[@]}"; do
-    if [ -e "$target" ]; then
-        echo -e "${GREEN}Removing: ${target}${NC}"
-        rm -rf "$target"
-    fi
-done
+# ----[ Main Execution ]----
+echo -e "${RED}[ TERMIFY UNINSTALLER ]${COLOR_RESET}"
+read -p "Are you sure? This will remove ALL Termify components! [y/N] " -n 1 -r
+echo
 
-# ---------------------- Post-Rollback Checks ----------------------
-# Cek jika shell masih zsh
-if [ -n "$ZSH_VERSION" ]; then
-    echo -e "\n${YELLOW}Warning: You're still using Zsh.${NC}"
-    echo -e "To avoid errors, switch to bash:"
-    echo -e "${GREEN}exec bash${NC}"
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    reset_shell
+    remove_ohmyzsh
+    clean_artifacts
+    echo -e "\n${GREEN}✓ Uninstall complete!${COLOR_RESET}"
+    echo "Close and reopen Termux to see changes"
+else
+    echo -e "\nUninstall canceled"
 fi
-
-echo -e "\n${GREEN}Rollback complete!${NC}"
-echo -e "${YELLOW}Restart terminal or run 'exec bash' immediately.${NC}"
