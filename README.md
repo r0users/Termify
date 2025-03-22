@@ -27,6 +27,12 @@ Works on **Termux (Android)** and **Linux** (Ubuntu, Arch, Fedora).
 - 🔄 **Safe Rollback**  
   Use `restore-default` to revert changes (backups preserved).  
 
++## 🙏 Credits  
++Special thanks to these amazing open-source projects:  
++- [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) - Community-driven Zsh framework  
++- [Zsh Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - Fish-like autocomplete  
++- [Termux](https://github.com/termux/termux-app) - Android terminal environment  
+
 ## ⚠️ Important Notes
 1. Backup existing config manually before installation:
 ```bash
