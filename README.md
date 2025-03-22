@@ -18,20 +18,20 @@ Optimized for **Termux (Android)** and **Arch Linux**.
 </div>
 
 ## ✨ Features  
-- 🛠️ **Automated Setup**  
-  Installs Zsh, Oh-My-Zsh, speedtest tools, and neofetch.  
-- 🔌 **Smart Configuration**  
-  Auto-detects Termux/Linux environments.  
-- ⚡ **Productivity Aliases**  
-  `spd` - Run speed test | `neo` - Show system info | `edit` - Edit config.  
+- 🛠️ **One-Click Setup**  
+  Installs Zsh, plugins, and essential tools  
+- 🎨 **Theme Management**  
+  Pre-configured color schemes and prompt styles  
+- ⚡ **Productivity Boost**  
+  `spd` - Speed test | `neo` - System info | `edit` - Edit config  
 - 🔄 **Safe Rollback**  
-  Use `restore-default` to revert changes (backups preserved).  
+  Full restoration script included  
 
-+## 🙏 Credits  
-+Special thanks to these amazing open-source projects:  
-+- [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) - Community-driven Zsh framework  
-+- [Zsh Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - Fish-like autocomplete  
-+- [Termux](https://github.com/termux/termux-app) - Android terminal environment  
+## 🙏 Credits  
++ Special thanks to these amazing open-source projects:  
++ [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) - Community-driven Zsh framework  
++ [Zsh Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - Fish-like autocomplete  
++ [Termux](https://github.com/termux/termux-app) - Android terminal environment  
 
 ## ⚠️ Important Notes
 1. Backup existing config manually before installation:
