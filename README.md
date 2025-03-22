@@ -8,7 +8,7 @@ Works on **Termux (Android)** and **Linux** (Ubuntu, Arch, Fedora).
 ![Platform](https://img.shields.io/badge/Platform-Termux%20%7C%20Linux-green)  
 
 <div align="center">
-  <img src="https://i.imgur.com/your-demo-image.png" width="600" alt="Termify Demo">  
+  <img src="logo.png" width="600" alt="Termify Demo">  
 </div>
 
 ## 🌟 Before & After  
