@@ -9,7 +9,7 @@ Works on **Termux (Android)** and **Linux** (Ubuntu, Arch, Fedora).
 
 <!-- Logo utama dengan ukuran responsive -->
 <div align="center">
-  <img src="assets/logo.png" style="width: 80%; max-width: 600px; margin: 20px 0;" alt="Termify Logo">
+  <img src="assets/logo.jpg" style="width: 80%; max-width: 600px; margin: 20px 0;" alt="Termify Logo">
 </div>
 
 ## 🌟 Before & After  
