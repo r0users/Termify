@@ -6,46 +6,50 @@
 RED="\e[31m"
 GREEN="\e[32m"
 YELLOW="\e[33m"
-NC="\e[0m"
+NC="\e[0m"  # No Color
 
-echo -e "${YELLOW}*** Rolling Back Universal Terminal Theme Changes ***${NC}"
+echo -e "${YELLOW}*** Termify Configuration Rollback ***${NC}"
+echo -e "${YELLOW}This will restore your terminal to default settings.${NC}\n"
 
-# 1. Restore .zshrc backup
-backup=$(ls -t "$HOME"/.zshrc.backup.* 2>/dev/null | head -n 1)
+# ---------------------- Backup Restoration ----------------------
+# Restore latest .zshrc backup
+backup_file=$(ls -t "$HOME"/.zshrc.backup.* 2>/dev/null | head -n 1)
 
-if [ -z "$backup" ]; then
-    echo -e "${RED}No backup .zshrc found. Cannot perform rollback.${NC}"
+if [ -z "$backup_file" ]; then
+    echo -e "${RED}ERROR: No backup file found.${NC}"
+    echo -e "${YELLOW}Tip: Backups are created during installation with timestamp.${NC}"
     exit 1
 fi
 
-echo -e "${GREEN}Restoring your backup from: $backup${NC}"
-cp -f "$backup" "$HOME/.zshrc"
+echo -e "${GREEN}Restoring backup: ${backup_file}${NC}"
+if ! cp -f "$backup_file" "$HOME/.zshrc"; then
+    echo -e "${RED}Failed to restore .zshrc!${NC}"
+    exit 1
+fi
 
-# 2. Remove theme components
-echo -e "${YELLOW}Cleaning up theme components...${NC}"
+# ---------------------- Cleanup Process ----------------------
+echo -e "\n${YELLOW}Cleaning up theme components...${NC}"
 
-to_remove=(
+declare -a targets=(
     "$HOME/.oh-my-zsh"
     "$HOME/.termux"
     "$HOME/.hushlogin"
-    "$HOME/.zsh-autosuggestions"
-    "$HOME/.zcompdump*"  
+    "$HOME/.zcompdump*"
 )
 
-for item in "${to_remove[@]}"; do
-    if [ -e "$item" ]; then
-        rm -rf "$item"
-        echo -e "${GREEN}Removed: $item${NC}"
+for target in "${targets[@]}"; do
+    if [ -e "$target" ]; then
+        echo -e "${GREEN}Removing: ${target}${NC}"
+        rm -rf "$target"
     fi
 done
 
-# 3. Handle khusus untuk Arch Linux
-if [ -f "/etc/arch-release" ]; then
-    echo -e "${YELLOW}Performing additional cleanup for Arch Linux...${NC}"
-    sudo pacman -Rns --noconfirm zsh-autosuggestions 2>/dev/null
-    sudo chmod 755 /usr/share/zsh/site-functions
+# ---------------------- Post-Cleanup ----------------------
+# Special handling for Termux
+if [ -d "/data/data/com.termux/files/usr" ]; then
+    echo -e "\n${YELLOW}Resetting Termux...${NC}"
+    termux-reload-settings
 fi
 
-echo -e "${GREEN}Rollback complete! Please manually restart your terminal.${NC}"
-
-exit 0
+echo -e "\n${GREEN}Rollback complete!${NC}"
+echo -e "${YELLOW}Please restart your terminal to apply changes.${NC}"
