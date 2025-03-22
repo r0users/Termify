@@ -7,8 +7,9 @@ Works on **Termux (Android)** and **Linux** (Ubuntu, Arch, Fedora).
 ![GitHub License](https://img.shields.io/badge/License-MIT-blue)  
 ![Platform](https://img.shields.io/badge/Platform-Termux%20%7C%20Linux-green)  
 
+<!-- Logo utama dengan ukuran responsive -->
 <div align="center">
-  <img src="logo.png" width="600" alt="Termify Demo">  
+  <img src="assets/logo.png" style="width: 80%; max-width: 600px; margin: 20px 0;" alt="Termify Logo">
 </div>
 
 ## 🌟 Before & After  
