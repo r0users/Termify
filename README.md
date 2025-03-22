@@ -7,15 +7,15 @@ Works on **Termux (Android)** and **Linux** (Ubuntu, Arch, Fedora).
 ![GitHub License](https://img.shields.io/badge/License-MIT-blue)  
 ![Platform](https://img.shields.io/badge/Platform-Termux%20%7C%20Linux-green)  
 
-<!-- Logo utama dengan ukuran responsive -->
-<div align="center">
-  <img src="assets/logo.jpg" style="width: 80%; max-width: 600px; margin: 20px 0;" alt="Termify Logo">
+<div align="center" style="padding: 20px 0;">
+  <img src="assets/logo.jpg" style="width: 50%; max-width: 300px; margin-top: 10px;" alt="Termify Logo">
 </div>
 
 ## 🌟 Before & After  
-| Sebelum Install | Sesudah Install |  
-|-----------------|------------------|  
-| ![Before](assets/before.png) | ![After](assets/after.png) |  
+<div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 20px 0;">
+  <img src="assets/before.png" style="width: 40%; max-width: 350px; border: 1px solid #eee; border-radius: 8px;" alt="Before">
+  <img src="assets/after.png" style="width: 40%; max-width: 350px; border: 1px solid #eee; border-radius: 8px;" alt="After">
+</div>
 
 ## ✨ Features  
 - 🛠️ **Automated Setup**  
