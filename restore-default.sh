@@ -6,35 +6,39 @@
 RED="\e[31m"
 GREEN="\e[32m"
 YELLOW="\e[33m"
-NC="\e[0m"  # No Color
+NC="\e[0m"
 
 echo -e "${YELLOW}*** Termify Configuration Rollback ***${NC}"
-echo -e "${YELLOW}This will restore your terminal to default settings.${NC}\n"
+echo -e "${YELLOW}Restoring default terminal settings...${NC}\n"
 
-# ---------------------- Backup Restoration ----------------------
-# Restore latest .zshrc backup
+# ---------------------- Sanitize Backup ----------------------
+# Restore .zshrc backup with OMZ references removed
 backup_file=$(ls -t "$HOME"/.zshrc.backup.* 2>/dev/null | head -n 1)
 
 if [ -z "$backup_file" ]; then
     echo -e "${RED}ERROR: No backup file found.${NC}"
-    echo -e "${YELLOW}Tip: Backups are created during installation with timestamp.${NC}"
     exit 1
 fi
 
 echo -e "${GREEN}Restoring backup: ${backup_file}${NC}"
-if ! cp -f "$backup_file" "$HOME/.zshrc"; then
-    echo -e "${RED}Failed to restore .zshrc!${NC}"
+
+# Hapus bagian yang refer ke Oh-My-Zsh & theme
+sed '/^# BEGIN UNIVERSAL THEME/,/^# END UNIVERSAL THEME/d' "$backup_file" | \
+sed '/oh-my-zsh/d' > "$HOME/.zshrc.tmp" && \
+mv "$HOME/.zshrc.tmp" "$HOME/.zshrc" || {
+    echo -e "${RED}Failed to sanitize .zshrc!${NC}"
     exit 1
-fi
+}
 
 # ---------------------- Cleanup Process ----------------------
-echo -e "\n${YELLOW}Cleaning up theme components...${NC}"
+echo -e "\n${YELLOW}Cleaning up components...${NC}"
 
 declare -a targets=(
     "$HOME/.oh-my-zsh"
     "$HOME/.termux"
     "$HOME/.hushlogin"
     "$HOME/.zcompdump*"
+    "$HOME/.zsh-autosuggestions"
 )
 
 for target in "${targets[@]}"; do
@@ -44,12 +48,13 @@ for target in "${targets[@]}"; do
     fi
 done
 
-# ---------------------- Post-Cleanup ----------------------
-# Special handling for Termux
-if [ -d "/data/data/com.termux/files/usr" ]; then
-    echo -e "\n${YELLOW}Resetting Termux...${NC}"
-    termux-reload-settings
+# ---------------------- Post-Rollback Checks ----------------------
+# Cek jika shell masih zsh
+if [ -n "$ZSH_VERSION" ]; then
+    echo -e "\n${YELLOW}Warning: You're still using Zsh.${NC}"
+    echo -e "To avoid errors, switch to bash:"
+    echo -e "${GREEN}exec bash${NC}"
 fi
 
 echo -e "\n${GREEN}Rollback complete!${NC}"
-echo -e "${YELLOW}Please restart your terminal to apply changes.${NC}"
+echo -e "${YELLOW}Restart terminal or run 'exec bash' immediately.${NC}"
