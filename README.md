@@ -77,12 +77,12 @@ sudo ./restore-default.sh
 # Reopen Terminal
 ```
 ## ❓ FAQ
--  "Why doesn't autosuggestion work?"
+### Q  "Why doesn't autosuggestion work?"
 
-- Ensure you restarted terminal after installation
-- Check plugin installation in ~/.zshrc
+### A Ensure you restarted terminal after installation
+### A Check plugin installation in ~/.zshrc
 
--   "Arch Linux installation failed?"
+### Q  "Arch Linux installation failed?"
 
-- Ensure dependencies are installed
-- sudo pacman -S git curl zsh
+### A Ensure dependencies are installed
+### A sudo pacman -S git curl zsh
