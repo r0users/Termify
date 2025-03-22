@@ -27,6 +27,14 @@ Works on **Termux (Android)** and **Linux** (Ubuntu, Arch, Fedora).
 - 🔄 **Safe Rollback**  
   Use `restore-default` to revert changes (backups preserved).  
 
+## ⚠️ Important Notes
+1. Backup existing config manually before installation:
+```bash
+cp ~/.zshrc ~/.zshrc.backup
+```
+2. Auto-suggestions will be enabled after terminal restart
+3. Rollback script will completely remove all theme components
+
 ## 🚀 Quick Start  
 
 ### Install Theme 
