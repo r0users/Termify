@@ -11,6 +11,11 @@ Works on **Termux (Android)** and **Linux** (Ubuntu, Arch, Fedora).
   <img src="https://i.imgur.com/your-demo-image.png" width="600" alt="Termify Demo">  
 </div>
 
+## 🌟 Before & After  
+| Sebelum Install | Sesudah Install |  
+|-----------------|------------------|  
+| ![Before](assets/before.png) | ![After](assets/after.png) |  
+
 ## ✨ Features  
 - 🛠️ **Automated Setup**  
   Installs Zsh, Oh-My-Zsh, speedtest tools, and neofetch.  
