@@ -18,14 +18,18 @@ Optimized for **Termux (Android)** and **Arch Linux**.
 </div>
 
 ## ✨ Features  
-- 🛠️ **One-Click Setup**  
-  Installs Zsh, plugins, and essential tools  
-- 🎨 **Theme Management**  
-  Pre-configured color schemes and prompt styles  
-- ⚡ **Productivity Boost**  
-  `spd` - Speed test | `neo` - System info | `edit` - Edit config  
-- 🔄 **Safe Rollback**  
-  Full restoration script included  
+- 🚀 **Automated Environment Setup**  
+  Installs Zsh, Oh-My-Zsh, and essential dependencies  
+- 🧠 **Smart Autosuggestions**  
+  Fish-style auto-completion powered by zsh-autosuggestions  
+- 🎨 **Minimalist Gray Theme**  
+  Pre-configured #333333 background with white text  
+- ✏️ **Custom Prompt Design**  
+  Clean `user@host:dir ➤` format with color coding  
+- 🔕 **Silent Mode**  
+  Automatic welcome message suppression (.hushlogin)  
+- ⚡ **Zero Configuration**  
+  Auto-applies settings and reloads terminal  
 
 ## 🙏 Credits  
 + Special thanks to these amazing open-source projects:  
@@ -61,7 +65,7 @@ sudo ./install-theme.sh
 
 # Reopen Terminal
 ```
-## Restore Defaults
+### Restore Defaults
 ```bash
 cd Termify
 bash restore-default.sh
@@ -73,12 +77,12 @@ sudo ./restore-default.sh
 # Reopen Terminal
 ```
 ### ❓ FAQ
-## "Why doesn't autosuggestion work?"
+# "Why doesn't autosuggestion work?"
 
 - Ensure you restarted terminal after installation
 - Check plugin installation in ~/.zshrc
 
-## "Arch Linux installation failed?"
+# "Arch Linux installation failed?"
 
 - Ensure dependencies are installed
 - sudo pacman -S git curl zsh
