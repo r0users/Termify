@@ -1,8 +1,8 @@
 # Termify 🖥️✨  
-**One-Click Terminal Setup & Theme Manager**  
+**Terminal Setup & Theme Manager for Termux & Arch**  
 
 Transform your terminal into a powerful environment with pre-configured tools and aliases.  
-Works on **Termux (Android)** and **Linux** (Ubuntu, Arch, Fedora).  
+Optimized for **Termux (Android)** and **Arch Linux**.  
 
 ![GitHub License](https://img.shields.io/badge/License-MIT-blue)  
 ![Platform](https://img.shields.io/badge/Platform-Termux%20%7C%20Linux-green)  
@@ -40,33 +40,28 @@ cp ~/.zshrc ~/.zshrc.backup
 ```
 2. Auto-suggestions will be enabled after terminal restart
 3. Rollback script will completely remove all theme components
+4. Requires storage permission in Termux
+5. Arch Linux users need sudo privileges
 
 ## 🚀 Quick Start  
 
 ### Install Theme 
 ```bash  
-# Install & Setup  
-
-git clone https://github.com/r0users/Termify.git  
-cd Termify
-
+# Termux
+git clone https://github.com/r0users/Termify.git
 cd Termify
 bash install-theme.sh
 
-# Or
-
+# Reopen Terminal
+```
+# Arch Linux
+```bash
+git clone https://github.com/r0users/Termify.git
 cd Termify
 sudo ./install-theme.sh
 
-# After setup completes:  
-
-chsh -s zsh 
-
-exit 
-
 # Reopen Terminal
 ```
-
 ## Restore Defaults
 ```bash
 
@@ -83,13 +78,13 @@ exit
 # Reopen Terminal
 ```
 
-## ❓ FAQ
-### "Why doesn't my shell change automatically?"
+### ❓ FAQ
+## "Why doesn't autosuggestion work?"
 
-- Changing shells requires elevated privileges.
-- Follow the post-install instructions carefully.
+- Ensure you restarted terminal after installation
+- Check plugin installation in ~/.zshrc
 
-### "Package installation failed!"
+## "Arch Linux installation failed?"
 
-- Ensure you have internet connection.
-- For Linux, run with sudo.
+- Ensure dependencies are installed
+- sudo pacman -S git curl zsh
