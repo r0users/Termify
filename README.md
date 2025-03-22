@@ -65,15 +65,13 @@ cd Termify
 sudo ./restore-default.sh
 ```
 
-❓ FAQ
-"Why doesn't my shell change automatically?"
+## ❓ FAQ
+### "Why doesn't my shell change automatically?"
 
-    Changing shells requires elevated privileges.
+- Changing shells requires elevated privileges.
+- Follow the post-install instructions carefully.
 
-    Follow the post-install instructions carefully.
+### "Package installation failed!"
 
-"Package installation failed!"
-
-    Ensure you have internet connection.
-
-    For Linux, run with sudo.
+- Ensure you have internet connection.
+- For Linux, run with sudo.
