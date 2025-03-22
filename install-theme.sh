@@ -1,23 +1,30 @@
-Copy
-
 #!/bin/bash
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 r0users
 # Repository: https://github.com/r0users/Termify
 
-# ---------------------- Animasi Kucing ----------------------
-boot_animation() {
-  printf "\033[1;36m"
-  cat << "EOF"
- /\_/\  
-( o.o ) 
- > ^ <
-EOF
-  printf "\033[0m"
-  sleep 5
+# ---------------------- Animated Cat ----------------------
+show_cat() {
+  frames=(
+    "  ╱▔▔▔▔▔▔▔╲ 
+   ▕  ฅ^•ﻌ•^ฅ  ▏
+    ╲     ▼    ╱
+     ╲        ╱
+      ▔▔▔▔▔▔▔▔"
+    "  ╱▔▔▔▔▔▔▔╲ 
+   ▕  ฅ¬•ﻌ•¬ฅ  ▏
+    ╲     ▼    ╱
+     ╲   ◡    ╱
+      ▔▔▔▔▔▔▔▔"
+  )
+  for i in {1..5}; do
+    clear
+    echo -e "\033[1;36m${frames[$((i % 2))]}\033[0m"
+    sleep 0.5
+  done
 }
 
-# ---------------------- Konfigurasi Warna ----------------------
+# ---------------------- Global Config ----------------------
 BOLD="\033[1m"
 RED="\033[1;31m"
 GREEN="\033[1;32m"
@@ -26,101 +33,107 @@ BLUE="\033[1;34m"
 NC="\033[0m"
 
 HOME_DIR="$HOME"
+ZSH_CUSTOM=""
 
-# ---------------------- Fungsi Utama ----------------------
-remove_config() {
-  echo -e "${YELLOW}🔄 Membersihkan konfigurasi lama...${NC}"
+# ---------------------- Core Functions ----------------------
+setup_termux() {
+  echo -e "${BLUE}Configuring Termux...${NC}"
   
-  # Hapus file/folder terkait theme
-  targets=(
-    "$HOME_DIR/.oh-my-zsh"
-    "$HOME_DIR/.termux"
-    "$HOME_DIR/.hushlogin"
-    "$HOME_DIR/.zcompdump*"
+  # Suppress welcome message
+  touch "$HOME/.hushlogin"
+  
+  # Color schemes
+  schemes=(
+    "Dracula:#1E1E1E:#C7C7C7"
+    "Nord:#2E3440:#D8DEE9"
+    "Solarized:#002B36:#839496"
   )
   
-  for target in "${targets[@]}"; do
-    [ -e "$target" ] && rm -rfv "$target"
-  done
+  selected=$(printf "%s\n" "${schemes[@]}" | fzf --prompt="Select color scheme: " | cut -d: -f2-)
+  IFS=':' read -r bg fg <<< "$selected"
+  
+  mkdir -p "$HOME/.termux"
+  echo -e "background=${bg}\nforeground=${fg}" > "$HOME/.termux/colors.properties"
+  termux-reload-settings
+}
+
+setup_prompt() {
+  echo -e "${YELLOW}Choose your ZSH prompt style:${NC}"
+  prompts=(
+    "robbyrussell (Default OMZ)"
+    "agnoster (Powerline style)"
+    "bira (Compact)"
+    "fishy (Colorful)"
+  )
+  
+  selected=$(printf "%s\n" "${prompts[@]}" | fzf --height=30% --reverse --prompt="Select prompt: ")
+  theme=$(echo "$selected" | awk '{print $1}')
+  
+  sed -i "s/ZSH_THEME=.*/ZSH_THEME=\"${theme}\"/" "$HOME/.zshrc"
 }
 
 install_deps() {
-  echo -e "${BLUE}📦 Menginstall dependensi untuk ${OS_NAME}...${NC}"
+  # Common packages
+  packages=(
+    zsh git curl neofetch
+    speedtest-go  # Termux
+    speedtest-cli # Linux
+  )
   
-  if [ "$OS_TYPE" = "termux" ]; then
-    # Termux packages
+  echo -e "${BLUE}Installing dependencies...${NC}"
+  if [ -d "/data/data/com.termux/files/usr" ]; then
     pkg update -y && pkg upgrade -y
-    pkg install -y zsh git curl speedtest-go neofetch
-    
-  elif [ "$OS_TYPE" = "linux" ]; then
-    # Linux packages
-    if command -v apt-get >/dev/null; then
-      sudo apt-get update -y
-      sudo apt-get install -y zsh git curl speedtest-cli neofetch
-      
-    elif command -v pacman >/dev/null; then
-      sudo pacman -Syu --noconfirm zsh git curl speedtest-cli neofetch
-      
-    elif command -v dnf >/dev/null; then
-      sudo dnf install -y zsh git curl speedtest-cli neofetch
-    fi
+    pkg install -y "${packages[@]}"
+  else
+    sudo apt update -y && sudo apt install -y "${packages[@]}"   # Ubuntu/Debian
+    # sudo pacman/dnf commands here
   fi || {
-    echo -e "${RED}❌ Gagal menginstall paket!${NC}"
+    echo -e "${RED}Dependency installation failed!${NC}"
     exit 1
   }
 }
 
-setup_omz() {
-  echo -e "${YELLOW}⚙️ Menyiapkan Oh-My-Zsh...${NC}"
+configure_zsh() {
+  echo -e "${YELLOW}Configuring ZSH...${NC}"
   
-  # Install tanpa mengubah shell
+  # Install Oh-My-Zsh
   RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
   
-  # Plugin zsh-autosuggestions
-  if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions \
-      "$ZSH_CUSTOM/plugins/zsh-autosuggestions" || {
-        echo -e "${RED}❌ Gagal install plugin!${NC}"
-        exit 1
-      }
-  fi
-}
-
-setup_termux() {
-  echo -e "${BLUE}📱 Konfigurasi khusus Termux...${NC}"
+  # Auto-suggestions plugin
+  git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM}/plugins/zsh-autosuggestions"
   
-  # Warna default Termux
-  mkdir -p "$HOME/.termux"
-  cat > "$HOME/.termux/colors.properties" << EOF
-background=#1E1E1E
-foreground=#C7C7C7
+  # Write config
+  cat > "$HOME/.zshrc" << EOF
+# Termify Configuration
+export ZSH_CUSTOM="${ZSH_CUSTOM}"
+plugins=(git zsh-autosuggestions)
+
+# Aliases
+alias speed='speedtest-go || speedtest-cli'
+alias neo='neofetch'
+alias edit='nano ~/.zshrc'
+
+# Initialize OMZ
+source \$ZSH/oh-my-zsh.sh
 EOF
-  
-  termux-reload-settings
+
+  setup_prompt
 }
 
-# ---------------------- Eksekusi Utama ----------------------
-boot_animation
+# ---------------------- Main Execution ----------------------
+show_cat
+echo -e "${BOLD}Termify Terminal Setup${NC}\n"
 
-# Deteksi environment
+# Environment detection
 if [ -d "/data/data/com.termux/files/usr" ]; then
-  OS_TYPE="termux"
-  OS_NAME="Termux"
   ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+  setup_termux
 else
-  OS_TYPE="linux"
-  OS_NAME="$(grep PRETTY_NAME /etc/os-release | cut -d'"' -f2)"
   ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 fi
 
-remove_config
 install_deps
-setup_omz
+configure_zsh
 
-[ "$OS_TYPE" = "termux" ] && setup_termux
-
-echo -e "${GREEN}✅ Installasi berhasil!${NC}"
-echo -e "${BOLD}Langkah selanjutnya:"
-echo -e "1. Edit theme manual: ${BLUE}nano ~/.zshrc${NC}"
-echo -e "2. Aktifkan zsh: ${BLUE}chsh -s zsh${NC}"
-echo -e "3. Restart terminal!"
+echo -e "\n${GREEN}Setup complete!${NC}"
+echo -e "Restart terminal or run: ${BOLD}exec zsh${NC}"
