@@ -1,7 +1,7 @@
 #!/bin/bash
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2024 realmeuser
-# Repository: https://github.com/realmeuser/universal-terminal-theme
+# Copyright (c) 2025 r0users
+# Repository: https://github.com/r0users/Termify
 
 RED="\e[31m"
 GREEN="\e[32m"
