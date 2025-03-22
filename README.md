@@ -23,32 +23,48 @@ Works on **Termux (Android)** and **Linux** (Ubuntu, Arch, Fedora).
 
 ## 🚀 Quick Start  
 
-### Termux (Android)  
+### Install Theme 
 ```bash  
 # Install & Setup  
+
 git clone https://github.com/r0users/Termify.git  
-cd Termify  
+cd Termify
+
 bash install-theme
-### Or
-sudo ./install-theme  
+
+# Or
+
+sudo ./install-theme 
+
 # After setup completes:  
-chsh -s zsh  
-exit  
+
+chsh -s zsh 
+
+exit 
+
 # Reopen Termux 
 ```
 
 🛠️ Customization
 Adding Themes (Advanced)
+
 - Place your theme files in Termify/ directory.
-- Modify install-theme to apply your theme.
+- Modify install-theme.sh to apply your theme.
 
 ## Restore Defaults
 ```bash
-# (Android)
+
 cd Termify
+
 bash restore-default.sh
-# (Linux)
+
+# Or
+
 sudo ./restore-default.sh
+
+exit  
+
+# Reopen Termux 
 ```
 
 ## ❓ FAQ
