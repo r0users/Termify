@@ -7,8 +7,9 @@ Works on **Termux (Android)** and **Linux** (Ubuntu, Arch, Fedora).
 ![GitHub License](https://img.shields.io/badge/License-MIT-blue)  
 ![Platform](https://img.shields.io/badge/Platform-Termux%20%7C%20Linux-green)  
 
-<div align="center" style="padding: 20px 0;">
-  <img src="assets/logo.jpg" style="width: 50%; max-width: 300px; margin-top: 10px;" alt="Termify Logo">
+<div align="center" style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px; margin: 30px 0;">
+  <img src="assets/logo.jpg" style="width: 30%; max-width: 150px;" alt="Termify Logo">
+  <img src="assets/demo.gif" style="width: 50%; max-width: 250px; border-radius: 10px;" alt="Demo GIF">
 </div>
 
 ## 🌟 Before & After  
