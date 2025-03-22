@@ -42,7 +42,7 @@ chsh -s zsh
 
 exit 
 
-# Reopen Termux 
+# Reopen Terminal
 ```
 
 🛠️ Customization
@@ -64,7 +64,7 @@ sudo ./restore-default.sh
 
 exit  
 
-# Reopen Termux 
+# Reopen Terminal
 ```
 
 ## ❓ FAQ
