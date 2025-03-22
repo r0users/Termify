@@ -14,14 +14,17 @@ chsh -s zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # Install autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-# Configure theme and colors
-cat > ~/.zshrc <<EOL
+# Configure .zshrc
+cat > ~/.zshrc <<'EOL'
 # Termify Configuration
+export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 plugins=(git zsh-autosuggestions)
-source \$ZSH/oh-my-zsh.sh
+
+source $ZSH/oh-my-zsh.sh
+PROMPT='%{$fg[green]%}%n@%m%{$reset_color%}:%{$fg[cyan]%}%~%{$reset_color%} ➤ '
 EOL
 
 # Set gray background (#333333)
@@ -29,5 +32,5 @@ mkdir -p ~/.termux
 echo -e "background=#333333\nforeground=#FFFFFF" > ~/.termux/colors.properties
 termux-reload-settings
 
-# Clean exit
-exit
+# Apply changes
+exec zsh
