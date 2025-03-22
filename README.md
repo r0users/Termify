@@ -45,9 +45,8 @@ cp ~/.zshrc ~/.zshrc.backup
 
 ## 🚀 Quick Start  
 
-### Install Theme 
+### Termux
 ```bash  
-# Termux
 git clone https://github.com/r0users/Termify.git
 cd Termify
 bash install-theme.sh
