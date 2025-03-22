@@ -44,10 +44,12 @@ cp ~/.zshrc ~/.zshrc.backup
 git clone https://github.com/r0users/Termify.git  
 cd Termify
 
+cd Termify
 bash install-theme
 
 # Or
 
+cd Termify
 sudo ./install-theme 
 
 # After setup completes:  
@@ -63,11 +65,11 @@ exit
 ```bash
 
 cd Termify
-
 bash restore-default.sh
 
 # Or
 
+cd Termify
 sudo ./restore-default.sh
 
 exit  
